@@ -5,7 +5,7 @@ import { paypal } from "../../config/paypal.js";
 import dotenv from 'dotenv'
 dotenv.config()
 
-const URL = process.env.CLIENT_URL || 'http://localhost:5173'
+const URL = process.env.FRONTEND_URL || 'http://localhost:5173'
 const createOrder = async (req, res) => {
     try {
         const {
