@@ -1,0 +1,17 @@
+{
+  "name": "mern_project_elife_style",
+  "version": "1.0.0",
+  "description": "It a capstone project created using MERN technology",
+  "main": "index.js",
+  "scripts": {
+    "frontend":"cd client && npm run dev",
+    "backend":"cd server && npm run dev",
+    "dev": "concurrently \"npm run frontend\" \"npm run backend\""
+
+  },
+  "author": "Gautam Kumar Sharma",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.1.0"
+  }
+}
