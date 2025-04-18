@@ -36,7 +36,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(checkAuthUser());
+    const token = JSON.parse(sessionStorage.getItem('token'))
+    dispatch(checkAuthUser(token));
   }, [dispatch]);
 
   if (isLoading) return <LoadingBars /> || <div>Loading....</div>;

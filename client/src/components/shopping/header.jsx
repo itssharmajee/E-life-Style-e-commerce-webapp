@@ -21,7 +21,7 @@ import {
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "../ui/avatar";
-import { logOutUser } from "@/store/authSlice";
+import { logOutUser, resetTokenAndCredentials } from "@/store/authSlice";
 import UserCartWrapper from "./cartWrapper";
 import { fetchCartItems } from "@/store/shopping/cartSlice";
 import { Label } from "../ui/label";
@@ -79,7 +79,10 @@ function HeaderRightContent() {
     // Clear all sessionStorage data
     // sessionStorage.clear(); 
     //sessionStorage.removeItem('filters') // specific session data
-    dispatch(logOutUser());
+    // dispatch(logOutUser());
+    dispatch(resetTokenAndCredentials())
+        sessionStorage.clear()
+        navigate("/auth/login")
   }
 
   useEffect(()=>{

@@ -89,16 +89,33 @@ export const userLogin = async (req, res) => {
             return res.json({ success: false, message: "Token generation failed" });
         }
 
-        res.cookie("UserToken", token, { httpOnly: true, secure: false }).json({
-            success: true,
-            message: "Logged-In Successfully",
+        // res.cookie("UserToken", token, { httpOnly: true, secure: true }).json({
+        //     success: true,
+        //     message: "Logged-In Successfully",
+        //     user: {
+        //         email: checkUserExist.email,
+        //         role: checkUserExist.role,
+        //         id: checkUserExist._id,
+        //         userName:checkUserExist.userName,
+        //     },
+        // });
+
+
+        // sending cookie and token for frontend
+
+        res.status(200).json({
+            success:true,
+            message:"login successfully",
+            token,
             user: {
-                email: checkUserExist.email,
-                role: checkUserExist.role,
-                id: checkUserExist._id,
-                userName:checkUserExist.userName,
-            },
-        });
+                        email: checkUserExist.email,
+                        role: checkUserExist.role,
+                        id: checkUserExist._id,
+                        userName:checkUserExist.userName,
+                    },
+
+        })
+
     } catch (e) {
         console.log(e);
         res.status(500).json({
@@ -121,8 +138,27 @@ export const logoutUser = (req,res)=>{
 
 // middleware for authentication
 
+// export const userAuthMiddleware = async(req, res, next)=>{
+//     const token = req.cookies.UserToken;
+//     if(!token) return res.status(401).json({
+//         success:false,
+//         message:'Unauthorized User! '
+//     })
+
+//     try {
+//         const decodedPass = jwt.verify(token,SECRET_KEY);
+//         req.user = decodedPass;
+//         next()
+//     } catch (error) {
+//         res.status(401).json({
+//             success:false,
+//             message:"Unauthorized User! "
+//         })
+//     }
+// }
 export const userAuthMiddleware = async(req, res, next)=>{
-    const token = req.cookies.UserToken;
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(" ")[1];
     if(!token) return res.status(401).json({
         success:false,
         message:'Unauthorized User! '
